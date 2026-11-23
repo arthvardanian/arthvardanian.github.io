@@ -1,0 +1,113 @@
+# =====================================================================
+#  ARTH — WEBSITE CONTENT
+#  Edit the words after each label, then click "Commit changes".
+#  The live site updates about a minute later.
+#  Lines that start with # are notes for you. The site ignores them.
+# =====================================================================
+
+Headline: Arth® / SMM in iGaming
+About:
+I'm Arth, a senior SMM manager with 6 years in iGaming and 2.5 of them in social media.
+I lead content and growth for gambling and betting brands across CIS, LATAM and North America (USA, Canada, Mexico). Every post is tied to the numbers the business actually cares about: FD, GGR, ROI, MAU and ER.
+Right now I lead a 5-person distributed social team and run 14 pages across 4 countries: content plans, campaigns from idea to performance report, competitor analysis and the standards that keep a team consistent.
+Before SMM I was a copywriter and a content team lead in betting and crypto, so I know how words sell.
+Languages: Russian and Armenian (native), English (upper-intermediate), Spanish (beginner).
+Based in Yerevan, Armenia. Remote, open to relocation.
+About link: More about me
+Tagline 1:
+Tagline 2:
+
+# The big grey words behind the collage (separated by commas)
+Background words: Arth®, SMM, iGaming, CIS, LATAM, Content, Growth, Campaigns, KPI
+
+# The spinning stamp
+Stamp outer: BUILT FOR THE FEED · TUNED FOR THE KPI ·
+Stamp inner: FD · GGR · ROI · ER ·
+
+# Messages from the mail form go to this address.
+# The first time someone sends the form, FormSubmit emails you an "Activate" link. Click it once.
+Email: arthadramas@gmail.com
+# Optional: a Web3Forms key (web3forms.com) instead of FormSubmit. Leave empty to use FormSubmit.
+Form key:
+
+# CONTACT: clicking CONTACT flips the headline into these lines.
+#   "= form" opens the mail form. "Socials" flips into the links listed under Socials.
+Contact lines: Email me = form / Socials
+Socials: Telegram = https://t.me/arthvardanian / LinkedIn = https://www.linkedin.com/in/arthvardanian
+Form title: Let's talk.
+Form button: Send
+Form thanks: Got it. I'll write back soon.
+Contact note: Now showing: Contact
+Index title: Work
+Index note: SMM for iGaming brands: teams, pages, GEOs and the numbers behind them.
+
+# =====================================================================
+#  MY TOOLS — the button at the bottom of the work panel.
+#  One line per tool:   Software | Name | logo | year you started
+#  Logo: "simple:" + a name from simpleicons.org (e.g. simple:figma),
+#        or a file you upload into the "icons" folder. Year can stay empty.
+# =====================================================================
+Software title: My tools
+Software | Jira | simple:jira |
+Software | Notion | simple:notion |
+Software | Asana | simple:asana |
+Software | Miro | simple:miro |
+Software | Trello | simple:trello |
+Software | Photoshop | simple:adobephotoshop |
+Software | Figma | simple:figma |
+Software | CapCut | simple:capcut |
+Software | Pinterest | simple:pinterest |
+Software | Google Analytics | simple:googleanalytics |
+Software | Google Workspace | simple:google |
+Software | LiveDune |  |
+Software | TGStat |  |
+Software | Tableau |  |
+Software | Manychat |  |
+Software | ChatGPT | simple:openai |
+Software | Gemini | simple:googlegemini |
+Software | Claude | simple:claude |
+
+# The images floating in the collage (file names, separated by commas).
+# Leave it empty to use all images from the Work list. Stat tiles are always mixed in.
+Collage images:
+
+# =====================================================================
+#  WORK
+#
+#  Coloured text tile (no image needed):
+#     Stat | Big text | Small text | Group | Colour
+#     Colour is optional, e.g. #FF2D78. Leave it empty for an automatic one.
+#
+#  Image (upload it into the "images" folder first):
+#     image file | Title | Group | Client | Year | Format | Metric
+#     "Metric" is optional: a short label printed on the image, e.g. +250% reach
+#     Example:  reels-cis.jpg | Reels launch | REDCORE GROUP | Global product | 2025 | Reels | +250% reach
+#
+#  Text between tiles:
+#     Note | Group | Heading | Text
+#
+#  - The Group decides which list it appears under in the work panel.
+#  - Lines with the same Title become one project that cycles its images.
+# =====================================================================
+
+Note | REDCORE GROUP | Senior SMM manager, Mar 2024 – now | Content plans tied to the SMM strategy and to the numbers behind the business: FD, GGR, ROI, MAU and ER. I lead a 5-person distributed social team for a global product and run 14 social pages across 4 countries, from campaign idea to performance analysis.
+Stat | 2.5 yrs | in SMM | REDCORE GROUP | #00C2FF
+Stat | 14 | social pages | REDCORE GROUP | #FF2D78
+Stat | 4 | countries | REDCORE GROUP | #2F5BFF
+Stat | 5 | people in my team | REDCORE GROUP | #FFD400
+Stat | KPI | FD · GGR · ROI · ER | REDCORE GROUP | #0A0A0A
+
+Note | GEO | Markets I've run | Social media for iGaming brands in three regions, each with its own language, rules and audience.
+Stat | CIS | Russian-speaking markets | GEO | #7C3AED
+Stat | LATAM | Latin America | GEO | #FF6A00
+Stat | USA CA MX | North America | GEO | #00C2FF
+
+Note | BEFORE SMM | Copy and content, 2020 – 2024 | Senior copywriter at VBET (Yerevan): banners, email campaigns, SMM posts and landing pages. Content team lead and content writer at Meta Ratings: led the team, owned KPIs and reports, wrote about betting, crypto and sports.
+Stat | 6 yrs | in iGaming | BEFORE SMM | #FF2D78
+Stat | VBET | senior copywriter | BEFORE SMM | #FFD400
+Stat | Team lead | Meta Ratings content team | BEFORE SMM | #2F5BFF
+
+Note | LANGUAGES | Languages | I write and work with teams in four languages.
+Stat | RU AM | native | LANGUAGES | #00E676
+Stat | EN | upper-intermediate | LANGUAGES | #0A0A0A
+Stat | ES | beginner | LANGUAGES | #FF6A00
