@@ -184,6 +184,9 @@ var DRIFT_SETTINGS = {
 #drift .dr-nav{position:absolute;top:14px;z-index:6;display:grid;gap:2px;color:#fff;mix-blend-mode:difference}
 #drift .dr-panel{position:absolute;top:0;bottom:0;right:0;width:min(78vw,1240px);z-index:10;transform:translateX(calc(100% - clamp(52px,5.4vw,86px)));transition:transform .75s cubic-bezier(.7,0,.2,1);display:grid;grid-template-columns:34px 190px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:18px;padding-right:16px}
 #drift.dr-open .dr-panel{transform:translateX(0);box-shadow:-1px 0 0 rgba(0,0,0,.06)}
+/* while the panel is closed only the OPEN strip shows: its content fades in as it slides open */
+#drift .dr-panel > *:not(.dr-peek){transition:opacity .45s ease .25s}
+#drift:not(.dr-open) .dr-panel > *:not(.dr-peek){opacity:0;pointer-events:none;transition:opacity .2s ease}
 #drift .dr-nav .dr-small,#drift .dr-more{font-size:clamp(20px,1.8vw,30px);letter-spacing:-.025em;line-height:1.1}
 #drift .dr-about{top:clamp(100px,8.6vw,128px)}
 #drift:not(.dr-open) .dr-panel{animation:drnudge 5s cubic-bezier(.3,0,.2,1) infinite}
