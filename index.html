@@ -40,11 +40,11 @@
         document.head.appendChild(gs); return;
       }
       if (/^note\s*\|/i.test(line)) { work += '<div class="note">' + esc(line) + '</div>'; return; }
-      /* Stat | Big text | Small text | Group | Colour  ->  a coloured text tile (no image needed) */
-      if (/^stat\s*\|/i.test(line)) {
+
+      /* Tile | Big text | Small text | Label | Colour  ->  a coloured text tile that only floats in the collage */
+      if (/^(tile|stat)\s*\|/i.test(line)) {
         var st = line.split('|').map(function (x) { return x.trim(); });
-        if (st[1]) (window.DRIFT_STATS = window.DRIFT_STATS || []).push({ big: st[1], small: st[2] || '', group: st[3] || 'Numbers', color: st[4] || '' });
-        work += '<div class="note-anchor" data-stat="' + (window.DRIFT_STATS ? window.DRIFT_STATS.length - 1 : 0) + '"></div>';
+        if (st[1]) (window.DRIFT_STATS = window.DRIFT_STATS || []).push({ big: st[1], small: st[2] || '', group: st[3] || '', color: st[4] || '' });
         return;
       }
       if (/^software\s*\|/i.test(line)) {
@@ -136,7 +136,7 @@ var DRIFT_SETTINGS = {
 #drift .dr-stat i{font-style:normal;font-size:8em;letter-spacing:.03em;opacity:.75}
 #drift .dr-stat b{display:block;font-weight:800;letter-spacing:-.055em;line-height:.86;overflow-wrap:normal;word-break:normal}
 #drift .dr-stat span{font-size:9em;letter-spacing:-.01em;line-height:1.02}
-#drift .dr-item:hover .dr-stat{filter:brightness(.92)}
+#drift .dr-item[data-pi="-1"]{cursor:default}
 #drift .dr-metric{position:absolute;left:6em;bottom:6em;max-width:88em;background:#fff;color:#0A0A0A;font-weight:800;font-size:10em;letter-spacing:-.04em;line-height:1;padding:3em 4em;text-transform:uppercase}
 #drift .dr-count{position:absolute;top:8px;right:8px;background:rgba(40,40,40,.72);color:#fff;font-size:11px;font-weight:600;padding:3px 7px;border-radius:99px;font-variant-numeric:tabular-nums;line-height:1.2}
 #drift .dr-stamp{position:absolute;z-index:2;left:47%;top:42%;width:clamp(96px,9vw,150px);aspect-ratio:1;pointer-events:none}
@@ -263,7 +263,7 @@ var DRIFT_SETTINGS = {
   var LABELS = {
     'headline': 'headline', 'about': 'about', 'about link': 'aboutLink', 'tagline 1': 'taglineA', 'tagline 2': 'taglineB',
     'background words': 'backgroundWords', 'stamp outer': 'stampOuter', 'stamp inner': 'stampInner', 'email': 'email',
-    'work label': 'workLabel', 'contact label': 'contactLabel', 'index title': 'indexTitle', 'index note': 'indexNote',
+    'work label': 'workLabel', 'contact label': 'contactLabel', 'index title': 'indexTitle', 'index note': 'indexNote', 'index empty': 'indexEmpty',
     'contact lines': 'contactLines', 'contact note': 'contactNote', 'collage images': 'collageImages',
     'socials': 'socials', 'software title': 'softwareTitle', 'form title': 'formTitle', 'form button': 'formButton', 'form thanks': 'formThanks', 'form key': 'formKey'
   };
@@ -373,13 +373,11 @@ var DRIFT_SETTINGS = {
     });
     /* coloured stat tiles from "Stat |" lines, placed where they were written in content.txt */
     var PAL = ['#FF2D78', '#00E676', '#2F5BFF', '#FFD400', '#7C3AED', '#FF6A00', '#00C2FF', '#0A0A0A'];
-    (window.DRIFT_STATS || []).forEach(function (st, k) {
-      var anchor = document.querySelector('#content [data-stat="' + k + '"]');
-      projects.push({ title: st.big, category: st.group, client: st.small, year: '', formats: '', metric: '',
-        stat: { big: st.big, small: st.small, color: st.color || PAL[k % PAL.length] }, el: anchor, pics: [{ src: '', ratio: 1.25 }] });
+    /* tiles live only in the collage, they are not part of Work */
+    projects.tiles = (window.DRIFT_STATS || []).map(function (st, k) {
+      return { title: st.big, category: st.group, client: st.small, year: '', formats: '', metric: '',
+        stat: { big: st.big, small: st.small, color: st.color || PAL[k % PAL.length] }, pics: [{ src: '', ratio: 1.25 }] };
     });
-    /* keep the order of content.txt */
-    projects.sort(function (a, b) { if (!a.el || !b.el || a.el === b.el) return 0; return (a.el.compareDocumentPosition(b.el) & 4) ? -1 : 1; });
     projects.notes = findNotes(projects);
     return projects;
   }
@@ -439,7 +437,7 @@ var DRIFT_SETTINGS = {
     if (p.stat) {
       var len = Math.max.apply(null, String(p.stat.big).split(/\s+/).map(function (w) { return Array.from(w).length; }).concat([1]));
       var words = String(p.stat.big).split(/\s+/).filter(Boolean).length || 1;
-      var fs = Math.min(30, 112 / len, 80 / words).toFixed(1);
+      var fs = Math.min(28, 112 / len, 80 / words).toFixed(1);
       return '<div class="dr-tile dr-stat" style="background:' + esc(p.stat.color) + ';color:' + inkFor(p.stat.color) + '">' +
         '<i>' + esc(p.category) + '</i><b style="font-size:' + fs + 'em">' + esc(p.stat.big) + '</b><span>' + esc(p.stat.small) + '</span></div>';
     }
@@ -470,7 +468,7 @@ var DRIFT_SETTINGS = {
   }
 
   function mount(projects) {
-    if (root || !projects.length) return;
+    if (root || (!projects.length && !(projects.tiles || []).length)) return;
     var bg = S.background || '#FFFFFF', ink = S.text || '#0A0A0A';
     root = document.createElement('div'); root.id = 'drift';
     root.style.background = bg; root.style.color = ink;
@@ -540,8 +538,8 @@ var DRIFT_SETTINGS = {
           if (hit && out.indexOf(projects[j]) < 0) { out.push(projects[j]); break; }
         }
       });
-      var pics = out.length ? out : projects.filter(function (p) { return !p.stat; });
-      var stats = projects.filter(function (p) { return p.stat; }), mix = [];
+      var pics = out.length ? out : projects.slice();
+      var stats = projects.tiles || [], mix = [];
       for (var q = 0; q < Math.max(pics.length, stats.length); q++) { if (pics[q]) mix.push(pics[q]); if (stats[q]) mix.push(stats[q]); }
       return mix.length ? mix : projects;
     })();
@@ -557,7 +555,7 @@ var DRIFT_SETTINGS = {
         if (w > W * 0.4) { w = Math.round(W * 0.4); h = Math.round(w * r); }
         var el = document.createElement('div'); el.className = 'dr-item';
         el.style.width = w + 'px'; el.style.height = h + 'px'; el.innerHTML = tileHTML(p);
-        el.dataset.pi = projects.indexOf(p); el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'See ' + p.title + ' in Work');
+        el.dataset.pi = projects.indexOf(p); if (!p.stat) { el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'See ' + p.title + ' in Work'); }
         field.appendChild(el); fitTiles(el); cycle(el, p);
         var col = i % 5, row = Math.floor(i / 5);
         items.push({ el: el, w: w, h: h,
@@ -718,6 +716,7 @@ var DRIFT_SETTINGS = {
         grid.appendChild(card); fitTiles(card); cycle(card, p);
       });
       notes.forEach(function (n) { if (!n.before) noteCard(n); });
+      if (!projects.length && !notes.length) noteCard({ heading: S.indexEmptyTitle || 'Coming soon', body: S.indexEmpty || 'Post visuals are on their way.' });
     }
     renderFilters(); renderGrid();
     root.querySelector('.dr-peek').addEventListener('click', function () { if (current !== 'All') { current = 'All'; renderFilters(); renderGrid(); } root.classList.add('dr-open'); });
@@ -971,7 +970,7 @@ var DRIFT_SETTINGS = {
     busy = true;
     harvest().then(function () {
       var projects = collect();
-      if (!projects.length) { busy = false; dropCover(); return; }
+      if (!projects.length && !projects.tiles.length) { busy = false; dropCover(); return; }
       measure(projects).then(function () { busy = false; if (onTargetPage() && !root) mount(projects); dropCover(); });
     });
   }
