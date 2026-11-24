@@ -242,6 +242,7 @@ var DRIFT_SETTINGS = {
 @media (max-width:760px){#drift .dr-softs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 #drift .dr-soft{display:grid;grid-template-rows:auto auto auto;justify-items:center;align-items:center;padding:22px 10px 10px;text-align:center}
 #drift .dr-softlogo{display:grid;place-items:center;width:40%;height:72px}
+#drift .dr-mono{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#0A0A0A;color:#fff;font-style:normal;font-weight:800;font-size:20px;letter-spacing:-.06em}
 #drift .dr-softlogo img{width:100%;height:auto;max-height:64px;object-fit:contain;filter:grayscale(1) brightness(0)}
 #drift .dr-soft b{font-size:14px;font-weight:600;letter-spacing:-.02em;margin-top:12px}
 #drift .dr-soft small{font-size:11px;font-weight:500;opacity:.5;margin-top:2px}
@@ -735,8 +736,12 @@ var DRIFT_SETTINGS = {
       var box = document.createElement('div'); box.className = 'dr-softs';
       SOFT.forEach(function (sw) {
         var t = document.createElement('div'); t.className = 'dr-soft';
-        var ic = sw.icon || '', src = /^simple:/i.test(ic) ? 'https://cdn.jsdelivr.net/npm/simple-icons@13/icons/' + ic.slice(7).trim().toLowerCase() + '.svg' : (ic ? (ic.indexOf('/') >= 0 ? ic : 'icons/' + ic) : '');
-        t.innerHTML = '<span class="dr-softlogo">' + (src ? '<img src="' + esc(encodeURI(src)) + '" alt="" draggable="false">' : '') + '</span>' +
+        var ic = sw.icon || '', monoSet = /^mono:/i.test(ic) ? ic.slice(5).trim() : '';
+        if (monoSet) ic = '';
+        var src = /^simple:/i.test(ic) ? 'https://cdn.jsdelivr.net/npm/simple-icons@13/icons/' + ic.slice(7).trim().toLowerCase() + '.svg' : (ic ? (ic.indexOf('/') >= 0 ? ic : 'icons/' + ic) : '');
+        /* no logo: a monogram badge in the same black style (e.g. LiveDune -> LD) */
+        var mono = monoSet || sw.name.replace(/[^A-Za-z0-9 ]/g, '').split(/\s+|(?=[A-Z][a-z])/).filter(Boolean).map(function (w) { return w.charAt(0).toUpperCase(); }).join('').slice(0, 2) || sw.name.slice(0, 2).toUpperCase();
+        t.innerHTML = '<span class="dr-softlogo">' + (src ? '<img src="' + esc(encodeURI(src)) + '" alt="" draggable="false" onerror="this.replaceWith(Object.assign(document.createElement(\'i\'),{className:\'dr-mono\',textContent:\'' + esc(mono) + '\'}))">' : '<i class="dr-mono">' + esc(mono) + '</i>') + '</span>' +
           '<b>' + esc(sw.name) + '</b><small>' + (sw.year ? 'Since ' + esc(sw.year) : '') + '</small>';
         box.appendChild(t);
       });
