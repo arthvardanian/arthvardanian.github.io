@@ -144,7 +144,8 @@ var DRIFT_SETTINGS = {
 @keyframes drspin{to{transform:rotate(360deg)}}
 #drift .dr-head{position:absolute;z-index:3;bottom:3vh;pointer-events:none;color:#FFFFFF;mix-blend-mode:difference;font-weight:600;text-transform:uppercase;letter-spacing:-.055em;line-height:.86;font-size:calc(clamp(42px,7.6vw,132px) * var(--hs,1))}
 #drift .dr-head span{display:block}
-#drift .dr-head .dr-sm{display:block;font-size:.42em;letter-spacing:-.035em;line-height:1;margin-top:.12em}
+#drift .dr-head .dr-md{display:block;font-size:.62em;letter-spacing:-.045em;line-height:.92;margin-top:.06em}
+#drift .dr-head .dr-sm{display:block;font-size:.42em;letter-spacing:-.035em;line-height:1;margin-top:.12em;text-transform:none}
 #drift .dr-head a{display:block;color:inherit;text-decoration:none;white-space:pre}
 #drift .dr-head a:hover{font-style:italic}
 @property --hs{syntax:'<number>';inherits:true;initial-value:1}
@@ -262,7 +263,7 @@ var DRIFT_SETTINGS = {
      About: (one or more paragraphs on the following lines)
      Tagline 1 / Tagline 2 / Stamp outer / Stamp inner / Background words / Email / Index note */
   var LABELS = {
-    'headline': 'headline', 'headline small': 'headlineSmall', 'about': 'about', 'about link': 'aboutLink', 'tagline 1': 'taglineA', 'tagline 2': 'taglineB',
+    'headline': 'headline', 'headline small': 'headlineSmall', 'headline medium': 'headlineMedium', 'about': 'about', 'about link': 'aboutLink', 'tagline 1': 'taglineA', 'tagline 2': 'taglineB',
     'background words': 'backgroundWords', 'stamp outer': 'stampOuter', 'stamp inner': 'stampInner', 'email': 'email',
     'work label': 'workLabel', 'contact label': 'contactLabel', 'index title': 'indexTitle', 'index note': 'indexNote', 'index empty': 'indexEmpty',
     'contact lines': 'contactLines', 'contact note': 'contactNote', 'collage images': 'collageImages',
@@ -468,17 +469,25 @@ var DRIFT_SETTINGS = {
     cleanup.push(function () { clearInterval(id); });
   }
 
+  /* headline rows can be set smaller in content.txt: "Headline medium:" and "Headline small:" */
+  function hlList(v) { return String(v || '').split(/[,\/]/).map(function (x) { return x.trim().toLowerCase(); }).filter(Boolean); }
+  function hlSize(t) {
+    t = String(t || '').trim().toLowerCase(); if (!t) return { cls: '', k: 1, rows: 1 };
+    if (hlList(S.headlineSmall).indexOf(t) >= 0) return { cls: 'dr-sm', k: 0.42, rows: 0.5 };
+    if (hlList(S.headlineMedium).indexOf(t) >= 0) return { cls: 'dr-md', k: 0.62, rows: 0.65 };
+    return { cls: '', k: 1, rows: 1 };
+  }
+  function hlOpen(t) { var c = hlSize(t).cls; return c ? '<span class="' + c + '">' : '<span>'; }
   function mount(projects) {
     if (root || (!projects.length && !(projects.tiles || []).length)) return;
     var bg = S.background || '#FFFFFF', ink = S.text || '#0A0A0A';
     root = document.createElement('div'); root.id = 'drift';
     root.style.background = bg; root.style.color = ink;
-    root.style.setProperty('--hl', (S.headline || []).reduce(function (n, l) { return n + (String(S.headlineSmall || '').toLowerCase().indexOf(String(l).trim().toLowerCase()) >= 0 && String(l).trim() ? 0.5 : 1); }, 0) || 3);
+    root.style.setProperty('--hl', (S.headline || []).reduce(function (n, l) { return n + hlSize(l).rows; }, 0) || 3);
     var gut = 'max(16px, 2.2vw)';
     var words = String(S.backgroundWords || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
     var wordHTML = ''; for (var i = 0; i < 48; i++) wordHTML += '<span>' + esc(words[i % Math.max(1, words.length)] || '') + '</span>';
-    var smallSet = String(S.headlineSmall || '').split(/[,\/]/).map(function (x) { return x.trim().toLowerCase(); }).filter(Boolean);
-    var head = (S.headline || []).map(function (l) { return (smallSet.indexOf(String(l).trim().toLowerCase()) >= 0 ? '<span class="dr-sm">' : '<span>') + esc(l) + '</span>'; }).join('');
+    var head = (S.headline || []).map(function (l) { return hlOpen(l) + esc(l) + '</span>'; }).join('');
     root.innerHTML =
       '<div class="dr-hero" style="background:' + esc(bg) + '">' +
         '<div class="dr-about" style="left:' + gut + ';--gut:' + gut + '">' + esc(S.about) + '</div>' +
@@ -783,8 +792,7 @@ var DRIFT_SETTINGS = {
     /* contact: the headline flips like a stadium scoreboard into the contact lines */
     var headEl = root.querySelector('.dr-head'), contactBtn = root.querySelector('.dr-contact');
     var boardOn = false, boardBusy = false, flipIds = [], socOpen = false;
-    var SMALL = String(S.headlineSmall || '').split(/[,\/]/).map(function (x) { return x.trim().toLowerCase(); }).filter(Boolean);
-    var HEADL = (S.headline || []).map(function (t) { return { t: String(t), sm: SMALL.indexOf(String(t).trim().toLowerCase()) >= 0 }; });
+    var HEADL = (S.headline || []).map(function (t) { return { t: String(t), sz: hlSize(t).cls }; });
     function toLink(h) {
       if (h && !/^(mailto:|https?:|tel:|#)/i.test(h)) h = (h.indexOf('@') > 0 && h.indexOf('/') < 0) ? 'mailto:' + h : 'https://' + h;
       return h;
@@ -800,7 +808,7 @@ var DRIFT_SETTINGS = {
     }).filter(function (l) { return l.t; });
     function socText() { return SOC.map(function (l) { return l.t; }).join(' · '); }
     function lineOpen(l, links) {
-      if (!links || !l || !l.h) return (l && l.sm) ? '<span class="dr-sm">' : '<span>';
+      if (!links || !l || !l.h) return (l && l.sz) ? '<span class="' + l.sz + '">' : '<span>';
       if (l.act) return '<a href="#" data-act="' + l.act + '">';
       return '<a href="' + esc(l.h) + '"' + (/^https?:/i.test(l.h) ? ' target="_blank" rel="noopener"' : '') + '>';
     }
@@ -825,7 +833,7 @@ var DRIFT_SETTINGS = {
       var left = headEl.getBoundingClientRect().left, peek = root.querySelector('.dr-peek').getBoundingClientRect().width || 60;
       var full = W - peek - 24 - left, maxW = (root.classList.contains('dr-formon') && W >= 760) ? W * 0.56 - 24 - left : full;
       var base = Math.min(132, Math.max(42, window.innerWidth * 0.076)), widest = 0;
-      curRows.forEach(function (t) { widest = Math.max(widest, emLen(t) * base * (SMALL.indexOf(String(t).trim().toLowerCase()) >= 0 ? 0.42 : 1)); });
+      curRows.forEach(function (t) { widest = Math.max(widest, emLen(t) * base * hlSize(t).k); });
       root.style.setProperty('--hs', (widest > maxW && maxW > 0) ? (maxW / widest).toFixed(3) : 1);
     }
     function socHTML() {
@@ -864,7 +872,7 @@ var DRIFT_SETTINGS = {
       if (reduce) { setPlain(to, links); done(); return; }
       var rows = Math.max(from.length, to.length), html = '';
       for (var i = 0; i < rows; i++) {
-        var a = Array.from(((from[i] || {}).t || '')), b = Array.from(((to[i] || {}).t || '')), o = to[i] ? lineOpen(to[i], links) : ((from[i] || {}).sm ? '<span class="dr-sm">' : '<span>'), cells = '';
+        var a = Array.from(((from[i] || {}).t || '')), b = Array.from(((to[i] || {}).t || '')), o = to[i] ? lineOpen(to[i], links) : ((from[i] || {}).sz ? '<span class="' + from[i].sz + '">' : '<span>'), cells = '';
         for (var k = 0; k < Math.max(a.length, b.length); k++) cells += cell(a[k], b[k]);
         html += o + cells + (o.indexOf('<span') === 0 ? '</span>' : '</a>');
       }
@@ -900,7 +908,7 @@ var DRIFT_SETTINGS = {
     }
 
     /* the resting headline uses the same letter cells, so nothing shifts when a flip starts */
-    function cellRows(lines) { headEl.innerHTML = lines.map(function (l) { return (l.sm ? '<span class="dr-sm">' : '<span>') + Array.from(l.t).map(function (ch) { return cell(ch, ch); }).join('') + '</span>'; }).join(''); }
+    function cellRows(lines) { headEl.innerHTML = lines.map(function (l) { return (l.sz ? '<span class="' + l.sz + '">' : '<span>') + Array.from(l.t).map(function (ch) { return cell(ch, ch); }).join('') + '</span>'; }).join(''); }
     if (!reduce) cellRows(HEADL);
     fitHead();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!reduce && !boardOn) cellRows(HEADL); });

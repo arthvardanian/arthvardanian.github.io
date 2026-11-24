@@ -5,9 +5,11 @@
 #  Lines that start with # are notes for you. The site ignores them.
 # =====================================================================
 
-Headline: Arth® / Social Media Manager / iGaming
-# Lines from the headline that should be smaller (separated by commas)
-Headline small: iGaming
+Headline: Arth⚽ / Social Media Manager / iGAMING
+# Lines from the headline that should be smaller (separated by commas).
+# Medium lines stay in capitals; small lines keep the letters exactly as written.
+Headline medium: Social Media Manager
+Headline small: iGAMING
 About:
 I'm Arth, a senior SMM ninja with 6 years of experience in iGaming: 3 years as a copywriter and content writer, and 3 years running social media.
 As an SMM manager, I've run social media for casino and sports brands across CIS, LATAM and North America.
