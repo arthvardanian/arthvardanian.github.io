@@ -120,14 +120,14 @@ var DRIFT_SETTINGS = {
 #drift .dr-about{transition:opacity .9s cubic-bezier(.7,0,.2,1),transform .9s cubic-bezier(.7,0,.2,1),z-index 0s linear .9s}
 #drift .dr-words,#drift .dr-tag{transition:opacity .7s ease}
 #drift.dr-about-on .dr-words,#drift.dr-about-on .dr-tag{opacity:0}
-#drift .dr-alinks{display:flex;flex-wrap:wrap;gap:6px 22px;margin-bottom:0;max-height:0;overflow:hidden;white-space:normal;visibility:hidden;opacity:0;transition:opacity .4s ease,visibility 0s linear .4s,max-height .4s ease,margin .4s ease}
+#drift .dr-alinks{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:0;max-height:0;overflow:hidden;padding:0 4px;margin-left:-4px;white-space:normal;visibility:hidden;opacity:0;transition:opacity .4s ease,visibility 0s linear .4s,max-height .4s ease,margin .4s ease}
 #drift .dr-alinks a{color:inherit;text-decoration:none;font-weight:600;text-transform:uppercase;font-size:1.15em;letter-spacing:-.01em;border-bottom:1.5px solid currentColor;padding-bottom:1px}
 #drift .dr-alinks a:hover{font-style:italic}
 #drift .dr-alinks{align-items:center}
 #drift .dr-alinks .dr-ico{display:block;width:30px;height:30px;padding:0;border:0}
 #drift .dr-alinks .dr-ico span{display:block;width:100%;height:100%;background:#0A0A0A;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;transition:transform .25s cubic-bezier(.3,0,.2,1)}
 #drift .dr-alinks .dr-ico:hover span,#drift .dr-alinks .dr-ico:focus-visible span{background:var(--brand);transform:scale(1.12)}
-#drift.dr-about-on .dr-alinks{visibility:visible;opacity:1;max-height:6em;margin-bottom:22px;transition:opacity .5s ease .5s,visibility 0s,max-height .5s ease,margin .5s ease}
+#drift.dr-about-on .dr-alinks{visibility:visible;opacity:1;max-height:6em;margin-top:22px;padding:4px;overflow:visible;transition:opacity .5s ease .5s,visibility 0s,max-height .5s ease,margin .5s ease}
 #drift.dr-about-on .dr-about{opacity:1;z-index:4;transform:translateX(calc(56vw + 32px - var(--gut)));transition:opacity .9s cubic-bezier(.7,0,.2,1) .1s,transform .9s cubic-bezier(.7,0,.2,1) .1s,z-index 0s}
 #drift .dr-words{position:absolute;left:50%;right:0;top:0;bottom:0;overflow:hidden;opacity:.1;font-weight:600;font-size:clamp(24px,3vw,46px);line-height:1.02;letter-spacing:-.03em;display:grid;grid-template-columns:repeat(3,max-content);gap:0 .7em;align-content:start;padding-top:7vh}
 #drift .dr-tag{position:absolute;top:5.5vh;left:32%;display:flex;gap:7vw;opacity:.22;font-size:clamp(18px,2.2vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1;white-space:pre-line}
@@ -533,7 +533,7 @@ var DRIFT_SETTINGS = {
     var head = (S.headline || []).map(function (l) { return hlOpen(l) + emoHTML(l) + '</span>'; }).join('');
     root.innerHTML =
       '<div class="dr-hero" style="background:' + esc(bg) + '">' +
-        '<div class="dr-about" style="left:' + gut + ';--gut:' + gut + '">' + aboutLinksHTML() + esc(S.about) + '</div>' +
+        '<div class="dr-about" style="left:' + gut + ';--gut:' + gut + '">' + esc(S.about) + aboutLinksHTML() + '</div>' +
         '<div class="dr-words" aria-hidden="true">' + wordHTML + '</div>' +
         '<div class="dr-tag" aria-hidden="true"><span>' + esc(S.taglineA) + '</span><span>' + esc(S.taglineB) + '</span></div>' +
         '<div class="dr-field"></div>' +
