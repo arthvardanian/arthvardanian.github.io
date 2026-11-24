@@ -8,8 +8,8 @@
 Headline: Arth® / SMM in iGaming
 About:
 I'm Arth, an SMM manager with 6 years in iGaming: 3 years as a copywriter and content writer, and 3 years running social media.
-As an SMM manager, I've run social media for casino and sports brands across CIS, LATAM and North America.
-I build channels and chats from scratch, along with the strategy, the ToV and the content plans behind them. Every post answers to a KPI: FD, GGR, ROI, MAU or ER.
+As an SMM manager, I've run social media for casino brands across CIS, LATAM and North America.
+I build channels and chats from scratch, along with the strategy, the tone of voice and the content plans behind them. Every post answers to a KPI: FD, GGR, ROI, MAU or ER.
 Based in Yerevan, Armenia. Open to remote work and relocation.
 About link: More about me
 Tagline 1:
@@ -37,7 +37,7 @@ Form button: Send
 Form thanks: Got it. I'll write back soon.
 Contact note: Now showing: Contact
 Index title: Work
-Index note: SMM for iGaming brands: teams, pages, GEOs and the numbers behind them.
+Index note: Visual ideas for posts I've made for iGaming brands.
 
 # =====================================================================
 #  MY TOOLS — the button at the bottom of the work panel.
@@ -65,48 +65,39 @@ Software | ChatGPT | simple:openai |
 Software | Gemini | simple:googlegemini |
 Software | Claude | simple:claude |
 
-# The images floating in the collage (file names, separated by commas).
-# Leave it empty to use all images from the Work list. Stat tiles are always mixed in.
+# The images from Work that also float in the collage (file names, separated by commas).
+# Leave it empty to use all of them. The coloured tiles below are always mixed in.
 Collage images:
 
 # =====================================================================
-#  WORK
-#
-#  Coloured text tile (no image needed):
-#     Stat | Big text | Small text | Group | Colour
-#     Colour is optional, e.g. #FF2D78. Leave it empty for an automatic one.
-#
-#  Image (upload it into the "images" folder first):
-#     image file | Title | Group | Client | Year | Format | Metric
-#     "Metric" is optional: a short label printed on the image, e.g. +250% reach
-#     Example:  reels-cis.jpg | Reels launch | REDCORE GROUP | Global product | 2025 | Reels | +250% reach
-#
-#  Text between tiles:
-#     Note | Group | Heading | Text
-#
-#  - The Group decides which list it appears under in the work panel.
-#  - Lines with the same Title become one project that cycles its images.
+#  TILES — the coloured tiles floating on the main screen.
+#  They only live in the collage and are NOT shown in Work.
+#  One line per tile:   Tile | Big text | Small text | Label | Colour
+#  Label (small text on top) and Colour (e.g. #FF2D78) are optional.
 # =====================================================================
 
-Note | REDCORE GROUP | Senior SMM manager, Mar 2024 – now | Content plans tied to the SMM strategy and to the numbers behind the business: FD, GGR, ROI, MAU and ER. I lead a 5-person distributed social team for a global product and run 14 social pages across 4 countries, from campaign idea to performance analysis.
-Stat | 3 yrs | in SMM | REDCORE GROUP | #00C2FF
-Stat | 14 | social pages | REDCORE GROUP | #FF2D78
-Stat | 4 | countries | REDCORE GROUP | #2F5BFF
-Stat | 5 | people in my team | REDCORE GROUP | #FFD400
-Stat | KPI | FD · GGR · ROI · ER | REDCORE GROUP | #0A0A0A
+Tile | 4.1M | views on my top sport Reels | Reels · CIS | #FF2D78
+Tile | 3× | in 2 months. Never dropped | Engagement | #00E676
+Tile | 2× | 6 months in a row | FD · Ads · Influencers | #2F5BFF
+Tile | 3 | CIS · LATAM · North America | GEO | #FFD400
+Tile | 5 | SMM specialists I led | Team · Senior | #7C3AED
+Tile | 700 | followers from 0 in 2 months | Chile · CPF €0.87 | #FF6A00
 
-Note | GEO | Markets I've run | Social media for iGaming brands in three regions, each with its own language, rules and audience.
-Stat | CIS | Russian-speaking markets | GEO | #7C3AED
-Stat | LATAM | Latin America | GEO | #FF6A00
-Stat | USA CA MX | North America | GEO | #00C2FF
-
-Note | BEFORE SMM | Copy and content, 2020 – 2024 | Senior copywriter at VBET (Yerevan): banners, email campaigns, SMM posts and landing pages. Content team lead and content writer at Meta Ratings: led the team, owned KPIs and reports, wrote about betting, crypto and sports.
-Stat | 6 yrs | in iGaming | BEFORE SMM | #FF2D78
-Stat | 3 yrs | copy and content | BEFORE SMM | #00E676
-Stat | VBET | senior copywriter | BEFORE SMM | #FFD400
-Stat | Team lead | Meta Ratings content team | BEFORE SMM | #2F5BFF
-
-Note | LANGUAGES | Languages | I write and work with teams in four languages.
-Stat | RU AM | native | LANGUAGES | #00E676
-Stat | EN | upper-intermediate | LANGUAGES | #0A0A0A
-Stat | ES | beginner | LANGUAGES | #FF6A00
+# =====================================================================
+#  WORK — visual ideas for posts. Only images go here.
+#
+#  1. Upload the image into the "images" folder.
+#  2. Add one line:   image file | Title | Group | Client | Year | Format | Metric
+#     - Group: the list it appears under in the panel (e.g. Casino · LATAM).
+#     - Metric is optional: a short label printed on the image, e.g. +250% reach
+#     - Lines with the same Title become one project that cycles its images.
+#     - Leave a part empty but keep the bars, e.g.  post-1.jpg | Bonus post | LATAM |  |  | Post
+#
+#  Text above a group:   Note | Group | Heading | Text
+#
+#  Example (remove the # to use it):
+#  # bonus-week-1.jpg | Bonus week | Casino · LATAM | Casino brand | 2025 | Instagram post | +35% ER
+#
+#  While there are no images here, the panel shows the "Index empty" text.
+# =====================================================================
+Index empty: Visual ideas for my posts are on their way.
