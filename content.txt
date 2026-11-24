@@ -19,8 +19,8 @@ About link: More about me
 Tagline 1:
 Tagline 2:
 
-# The big grey words behind the collage (separated by commas)
-Background words: Arth®, SMM, iGaming, CIS, LATAM, Content, Growth, Campaigns, KPI
+# The big grey words behind the collage (separated by commas). They are shuffled on every visit.
+Background words: Arth, SMM, Followers, Campaigns, Content Plans, Roadmaps, Reactions, Giveaways, Influencers, Comments, Views, KPI, ER %, VR %, AGR %, Depsum, FD, RDP, FRT
 
 # The spinning stamp
 Stamp outer: BUILT FOR THE FEED · TUNED FOR THE KPI ·

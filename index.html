@@ -489,7 +489,17 @@ var DRIFT_SETTINGS = {
     root.style.setProperty('--hl', (S.headline || []).reduce(function (n, l) { return n + hlSize(l).rows; }, 0) || 3);
     var gut = 'max(16px, 2.2vw)';
     var words = String(S.backgroundWords || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
-    var wordHTML = ''; for (var i = 0; i < 48; i++) wordHTML += '<span>' + esc(words[i % Math.max(1, words.length)] || '') + '</span>';
+    /* background words in a fresh random order on every visit, never the same word twice in a row */
+    var seq = [];
+    while (seq.length < 48 && words.length) {
+      var deck = words.slice();
+      for (var q = deck.length - 1; q > 0; q--) { var r = Math.floor(Math.random() * (q + 1)), tmp = deck[q]; deck[q] = deck[r]; deck[r] = tmp; }
+      /* words used most recently go to the back of the new round, so repeats stay far apart */
+      var recent = seq.slice(-Math.floor(words.length / 2));
+      deck.sort(function (x, y) { return (recent.indexOf(x) >= 0) - (recent.indexOf(y) >= 0); });
+      seq = seq.concat(deck);
+    }
+    var wordHTML = ''; for (var i = 0; i < 48; i++) wordHTML += '<span>' + esc(seq[i] || '') + '</span>';
     var head = (S.headline || []).map(function (l) { return hlOpen(l) + emoHTML(l) + '</span>'; }).join('');
     root.innerHTML =
       '<div class="dr-hero" style="background:' + esc(bg) + '">' +
