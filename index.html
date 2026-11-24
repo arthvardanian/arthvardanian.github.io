@@ -144,6 +144,7 @@ var DRIFT_SETTINGS = {
 @keyframes drspin{to{transform:rotate(360deg)}}
 #drift .dr-head{position:absolute;z-index:3;bottom:3vh;pointer-events:none;color:#FFFFFF;mix-blend-mode:difference;font-weight:600;text-transform:uppercase;letter-spacing:-.055em;line-height:.86;font-size:calc(clamp(42px,7.6vw,132px) * var(--hs,1))}
 #drift .dr-head span{display:block}
+#drift .dr-head .emo:not(.sp){filter:invert(1)}
 #drift .dr-head .dr-md{display:block;font-size:.62em;letter-spacing:-.045em;line-height:.92;margin-top:.06em}
 #drift .dr-head .dr-sm{display:block;font-size:.42em;letter-spacing:-.035em;line-height:1;margin-top:.12em;text-transform:none}
 #drift .dr-head a{display:block;color:inherit;text-decoration:none;white-space:pre}
@@ -477,6 +478,8 @@ var DRIFT_SETTINGS = {
     if (hlList(S.headlineMedium).indexOf(t) >= 0) return { cls: 'dr-md', k: 0.62, rows: 0.65 };
     return { cls: '', k: 1, rows: 1 };
   }
+  var EMO = /\p{Extended_Pictographic}/u;
+  function emoHTML(t) { return Array.from(String(t || '')).map(function (ch) { return EMO.test(ch) ? '<span class="emo" style="display:inline">' + esc(ch) + '</span>' : esc(ch); }).join(''); }
   function hlOpen(t) { var c = hlSize(t).cls; return c ? '<span class="' + c + '">' : '<span>'; }
   function mount(projects) {
     if (root || (!projects.length && !(projects.tiles || []).length)) return;
@@ -487,7 +490,7 @@ var DRIFT_SETTINGS = {
     var gut = 'max(16px, 2.2vw)';
     var words = String(S.backgroundWords || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
     var wordHTML = ''; for (var i = 0; i < 48; i++) wordHTML += '<span>' + esc(words[i % Math.max(1, words.length)] || '') + '</span>';
-    var head = (S.headline || []).map(function (l) { return hlOpen(l) + esc(l) + '</span>'; }).join('');
+    var head = (S.headline || []).map(function (l) { return hlOpen(l) + emoHTML(l) + '</span>'; }).join('');
     root.innerHTML =
       '<div class="dr-hero" style="background:' + esc(bg) + '">' +
         '<div class="dr-about" style="left:' + gut + ';--gut:' + gut + '">' + esc(S.about) + '</div>' +
@@ -843,13 +846,13 @@ var DRIFT_SETTINGS = {
     function setPlain(lines, links) {
       headEl.innerHTML = lines.map(function (l) {
         if (links && l.act === 'socials' && socOpen) return '<span class="dr-soc">' + socHTML() + '</span>';
-        var o = lineOpen(l, links); return o + esc(l.t) + (o.indexOf('<span') === 0 ? '</span>' : '</a>');
+        var o = lineOpen(l, links); return o + emoHTML(l.t) + (o.indexOf('<span') === 0 ? '</span>' : '</a>');
       }).join('');
       fitHead(rowTexts(lines, links));
     }
     var CH = 'ABCDEFGHKLNOPRSTUVXYZ0123456789';
     function cell(from, to) {
-      return '<span class="c" data-to="' + esc(to || '') + '" style="width:' + emOf(to).toFixed(4) + 'em">' + esc(to ? (from || ' ') : ' ') + '</span>';
+      return '<span class="c' + (to && EMO.test(to) ? ' emo' : '') + '" data-to="' + esc(to || '') + '" style="width:' + emOf(to).toFixed(4) + 'em">' + esc(to ? (from || ' ') : ' ') + '</span>';
     }
     /* spin the cells of one row: every cell already has its final width, letters cycle in place and land left to right */
     function spin(cs, rowNo, onDone) {
