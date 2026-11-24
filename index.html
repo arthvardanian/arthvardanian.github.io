@@ -548,21 +548,51 @@ var DRIFT_SETTINGS = {
       W = root.clientWidth; H = root.clientHeight;
       var count = W < 760 ? Math.min(9, S.tilesOnScreen || 17) : (S.tilesOnScreen || 17);
       var base = Math.max(80, Math.min(W, 1800) * ((S.tileSize || 8.8) / 100)), rows = Math.ceil(count / 5);
+      /* 1. the spots on screen */
+      var spots = [];
       for (var i = 0; i < count; i++) {
-        var p = pool[i % pool.length], r = p.pics[0].ratio || 1.25;
-        var s = base * (0.75 + ((i * 37) % 10) / 10 * 0.9), w = Math.round(s), h = Math.round(s * r);
+        var col = i % 5, row = Math.floor(i / 5);
+        spots.push({ s: base * (0.75 + ((i * 37) % 10) / 10 * 0.9),
+          bx: (col / 5) * W + ((i * 53) % 90) - 20 + (row % 2) * W * 0.09,
+          by: (row / rows) * (H - 40) + ((i * 29) % 60) - 30,
+          d: 0.55 + ((i * 7) % 10) / 10 * 0.9 });
+      }
+      /* 2. who goes where: copies of the same tile are kept as far apart as possible */
+      var WR = W + 120, HR = H + 120, used = pool.map(function () { return 0; }), placed = pool.map(function () { return []; });
+      var cap = Math.ceil(count / pool.length);
+      function gap(a, b) {
+        var dx = Math.abs(a.bx - b.bx) % WR, dy = Math.abs(a.by - b.by) % HR;
+        dx = Math.min(dx, WR - dx) / W; dy = Math.min(dy, HR - dy) / H;
+        return Math.sqrt(dx * dx + dy * dy);
+      }
+      var order = spots.map(function (sp, k) { return k; });
+      order.forEach(function (k, n) {
+        var sp = spots[k], best = -1, bestScore = -1;
+        for (var j = 0; j < pool.length; j++) {
+          var jj = (n + j) % pool.length;
+          if (used[jj] >= cap) continue;
+          var near = placed[jj].length ? Math.min.apply(null, placed[jj].map(function (o) { return gap(o, sp); })) : 9;
+          var score = near - used[jj] * 0.01;
+          if (score > bestScore + 1e-6) { bestScore = score; best = jj; }
+        }
+        if (best < 0) best = n % pool.length;
+        used[best]++;
+        /* copies drift at the same depth, so they never catch up with each other */
+        if (placed[best].length) sp.d = placed[best][0].d;
+        placed[best].push(sp); sp.p = pool[best];
+      });
+      /* 3. build the tiles */
+      spots.forEach(function (sp) {
+        var p = sp.p, r = p.pics[0].ratio || 1.25;
+        var w = Math.round(sp.s), h = Math.round(sp.s * r);
         if (h > H * 0.42) { h = Math.round(H * 0.42); w = Math.round(h / r); }
         if (w > W * 0.4) { w = Math.round(W * 0.4); h = Math.round(w * r); }
         var el = document.createElement('div'); el.className = 'dr-item';
         el.style.width = w + 'px'; el.style.height = h + 'px'; el.innerHTML = tileHTML(p);
         el.dataset.pi = projects.indexOf(p); if (!p.stat) { el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'See ' + p.title + ' in Work'); }
         field.appendChild(el); fitTiles(el); cycle(el, p);
-        var col = i % 5, row = Math.floor(i / 5);
-        items.push({ el: el, w: w, h: h,
-          bx: (col / 5) * W + ((i * 53) % 90) - 20 + (row % 2) * W * 0.09,
-          by: (row / rows) * (H - 40) + ((i * 29) % 60) - 30,
-          d: 0.55 + ((i * 7) % 10) / 10 * 0.9 });
-      }
+        items.push({ el: el, w: w, h: h, bx: sp.bx, by: sp.by, d: sp.d, dup: placed[pool.indexOf(p)][0] !== sp });
+      });
     }
     var t = { sx: 0, sy: 0, mx: 0, my: 0, cl: 0 }, c = { sx: 0, sy: 0, mx: 0, my: 0, cl: 0 };
     var RATE = { sx: 5.5, sy: 5.5, mx: 3.2, my: 3.2, cl: 3.4 }, M = S.mouseEffect == null ? 60 : S.mouseEffect, last = 0, raf = 0;
@@ -575,6 +605,8 @@ var DRIFT_SETTINGS = {
         if (ease > 0.0005) { var sq = (clearX + 60) / (W + it.w + 120); x += ((-it.w - 60 + (x + it.w + 60) * sq) - x) * ease; }
         var y = wrap(it.by - c.sy * it.d - c.my * M * it.d, -it.h - 60, H + 60);
         it.el.style.transform = 'translate3d(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px,0)';
+        /* while About is open the collage is squeezed, so repeat copies step aside */
+        if (it.dup) { var op = (1 - ease).toFixed(3); if (it.el.style.opacity !== op) { it.el.style.opacity = op; it.el.style.pointerEvents = ease > 0.5 ? 'none' : ''; } }
       }
     }
     function tick(now) {
