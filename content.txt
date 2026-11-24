@@ -7,12 +7,10 @@
 
 Headline: Arth® / SMM in iGaming
 About:
-I'm Arth, a senior SMM manager with 6 years in iGaming and 2.5 of them in social media.
-I lead content and growth for gambling and betting brands across CIS, LATAM and North America (USA, Canada, Mexico). Every post is tied to the numbers the business actually cares about: FD, GGR, ROI, MAU and ER.
-Right now I lead a 5-person distributed social team and run 14 pages across 4 countries: content plans, campaigns from idea to performance report, competitor analysis and the standards that keep a team consistent.
-Before SMM I was a copywriter and a content team lead in betting and crypto, so I know how words sell.
-Languages: Russian and Armenian (native), English (upper-intermediate), Spanish (beginner).
-Based in Yerevan, Armenia. Remote, open to relocation.
+I'm Arth, an SMM manager with 6 years in iGaming: 3 years as a copywriter and content writer, and 3 years running social media.
+As an SMM manager, I've run social media for casino brands across CIS, LATAM and North America.
+I build channels and chats from scratch, along with the strategy, the tone of voice and the content plans behind them. Every post answers to a KPI: FD, GGR, ROI, MAU or ER.
+Based in Yerevan, Armenia. Open to remote work and relocation.
 About link: More about me
 Tagline 1:
 Tagline 2:
@@ -91,7 +89,7 @@ Collage images:
 # =====================================================================
 
 Note | REDCORE GROUP | Senior SMM manager, Mar 2024 – now | Content plans tied to the SMM strategy and to the numbers behind the business: FD, GGR, ROI, MAU and ER. I lead a 5-person distributed social team for a global product and run 14 social pages across 4 countries, from campaign idea to performance analysis.
-Stat | 2.5 yrs | in SMM | REDCORE GROUP | #00C2FF
+Stat | 3 yrs | in SMM | REDCORE GROUP | #00C2FF
 Stat | 14 | social pages | REDCORE GROUP | #FF2D78
 Stat | 4 | countries | REDCORE GROUP | #2F5BFF
 Stat | 5 | people in my team | REDCORE GROUP | #FFD400
@@ -104,6 +102,7 @@ Stat | USA CA MX | North America | GEO | #00C2FF
 
 Note | BEFORE SMM | Copy and content, 2020 – 2024 | Senior copywriter at VBET (Yerevan): banners, email campaigns, SMM posts and landing pages. Content team lead and content writer at Meta Ratings: led the team, owned KPIs and reports, wrote about betting, crypto and sports.
 Stat | 6 yrs | in iGaming | BEFORE SMM | #FF2D78
+Stat | 3 yrs | copy and content | BEFORE SMM | #00E676
 Stat | VBET | senior copywriter | BEFORE SMM | #FFD400
 Stat | Team lead | Meta Ratings content team | BEFORE SMM | #2F5BFF
 
