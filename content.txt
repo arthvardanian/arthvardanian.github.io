@@ -77,11 +77,12 @@ Collage images:
 # =====================================================================
 
 Tile | 4.1M | views on my top sport Reels | Reels · CIS | #FF2D78
-Tile | 3× | in 2 months. Never dropped | Engagement | #00E676
-Tile | 2× | 6 months in a row | FD · Ads · Influencers | #2F5BFF
-Tile | 3 | CIS · LATAM · North America | GEO | #FFD400
-Tile | 5 | SMM specialists I led | Team · Senior | #7C3AED
-Tile | 700 | followers from 0 in 2 months | Chile · CPF €0.87 | #FF6A00
+Tile | 3× | in 2 months. Never dropped after | Engagement · CIS | #00E676
+Tile | 2× | 6 months in a row (with ads, influencers) | FD · Depsum · CH | #2F5BFF
+Tile | 10 | EMEA (RU, KZ, UZ, AZ), LATAM (BR, PE, CH), NA (CA, US, MX) | GEOs | #FFD400
+Tile | 5 | SMM specialists I led | Team · LATAM | #7C3AED
+Tile | 700 | followers from 0 in 2 months | Followers · Chile | #FF6A00
+Tile | €0.67 | ads, influencers, placements | CPF · Chile | #00C2FF
 
 # =====================================================================
 #  WORK — visual ideas for posts. Only images go here.
