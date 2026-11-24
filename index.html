@@ -123,6 +123,10 @@ var DRIFT_SETTINGS = {
 #drift .dr-alinks{display:flex;flex-wrap:wrap;gap:6px 22px;margin-bottom:0;max-height:0;overflow:hidden;white-space:normal;visibility:hidden;opacity:0;transition:opacity .4s ease,visibility 0s linear .4s,max-height .4s ease,margin .4s ease}
 #drift .dr-alinks a{color:inherit;text-decoration:none;font-weight:600;text-transform:uppercase;font-size:1.15em;letter-spacing:-.01em;border-bottom:1.5px solid currentColor;padding-bottom:1px}
 #drift .dr-alinks a:hover{font-style:italic}
+#drift .dr-alinks{align-items:center}
+#drift .dr-alinks .dr-ico{display:block;width:30px;height:30px;padding:0;border:0}
+#drift .dr-alinks .dr-ico span{display:block;width:100%;height:100%;background:#0A0A0A;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat;transition:transform .25s cubic-bezier(.3,0,.2,1)}
+#drift .dr-alinks .dr-ico:hover span,#drift .dr-alinks .dr-ico:focus-visible span{background:var(--brand);transform:scale(1.12)}
 #drift.dr-about-on .dr-alinks{visibility:visible;opacity:1;max-height:6em;margin-bottom:22px;transition:opacity .5s ease .5s,visibility 0s,max-height .5s ease,margin .5s ease}
 #drift.dr-about-on .dr-about{opacity:1;z-index:4;transform:translateX(calc(56vw + 32px - var(--gut)));transition:opacity .9s cubic-bezier(.7,0,.2,1) .1s,transform .9s cubic-bezier(.7,0,.2,1) .1s,z-index 0s}
 #drift .dr-words{position:absolute;left:50%;right:0;top:0;bottom:0;overflow:hidden;opacity:.1;font-weight:600;font-size:clamp(24px,3vw,46px);line-height:1.02;letter-spacing:-.03em;display:grid;grid-template-columns:repeat(3,max-content);gap:0 .7em;align-content:start;padding-top:7vh}
@@ -489,11 +493,21 @@ var DRIFT_SETTINGS = {
   function emoHTML(t) { return Array.from(String(t || '')).map(function (ch) { return EMO.test(ch) ? '<span class="emo" style="display:inline">' + esc(ch) + '</span>' : esc(ch); }).join(''); }
   function hlOpen(t) { var c = hlSize(t).cls; return c ? '<span class="' + c + '">' : '<span>'; }
   /* links shown above the About text when "More about me" is open */
+  /* icon links: black by default, brand colour on hover */
+  var ICONS = {
+    telegram: '#26A5E4',
+    instagram: 'linear-gradient(45deg,#FEDA75 5%,#FA7E1E 30%,#D62976 55%,#962FBF 80%,#4F5BD5 100%)',
+    linkedin: '#0A66C2',
+    x: '#000000', tiktok: '#000000', youtube: '#FF0000', facebook: '#0866FF', whatsapp: '#25D366', behance: '#1769FF'
+  };
   function aboutLinksHTML() {
     var links = (S.aboutLinks || []).map(function (raw) {
       var bits = String(raw).split('='), t = bits[0].trim(), h = bits.slice(1).join('=').trim();
       if (h && !/^(mailto:|https?:)/i.test(h)) h = 'https://' + h;
-      return t && h ? '<a href="' + esc(h) + '" target="_blank" rel="noopener">' + esc(t) + ' ↗</a>' : '';
+      if (!t || !h) return '';
+      var key = t.toLowerCase().replace(/[^a-z]/g, ''), brand = ICONS[key];
+      if (brand) return '<a class="dr-ico" href="' + esc(h) + '" target="_blank" rel="noopener" aria-label="' + esc(t) + '" title="' + esc(t) + '" style="--ico:url(https://cdn.jsdelivr.net/npm/simple-icons@13/icons/' + key + '.svg);--brand:' + brand + '"><span></span></a>';
+      return '<a href="' + esc(h) + '" target="_blank" rel="noopener">' + esc(t) + ' ↗</a>';
     }).filter(Boolean);
     return links.length ? '<span class="dr-alinks">' + links.join('') + '</span>' : '';
   }
