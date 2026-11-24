@@ -120,6 +120,10 @@ var DRIFT_SETTINGS = {
 #drift .dr-about{transition:opacity .9s cubic-bezier(.7,0,.2,1),transform .9s cubic-bezier(.7,0,.2,1),z-index 0s linear .9s}
 #drift .dr-words,#drift .dr-tag{transition:opacity .7s ease}
 #drift.dr-about-on .dr-words,#drift.dr-about-on .dr-tag{opacity:0}
+#drift .dr-alinks{display:flex;flex-wrap:wrap;gap:6px 22px;margin-bottom:0;max-height:0;overflow:hidden;white-space:normal;visibility:hidden;opacity:0;transition:opacity .4s ease,visibility 0s linear .4s,max-height .4s ease,margin .4s ease}
+#drift .dr-alinks a{color:inherit;text-decoration:none;font-weight:600;text-transform:uppercase;font-size:1.15em;letter-spacing:-.01em;border-bottom:1.5px solid currentColor;padding-bottom:1px}
+#drift .dr-alinks a:hover{font-style:italic}
+#drift.dr-about-on .dr-alinks{visibility:visible;opacity:1;max-height:6em;margin-bottom:22px;transition:opacity .5s ease .5s,visibility 0s,max-height .5s ease,margin .5s ease}
 #drift.dr-about-on .dr-about{opacity:1;z-index:4;transform:translateX(calc(56vw + 32px - var(--gut)));transition:opacity .9s cubic-bezier(.7,0,.2,1) .1s,transform .9s cubic-bezier(.7,0,.2,1) .1s,z-index 0s}
 #drift .dr-words{position:absolute;left:50%;right:0;top:0;bottom:0;overflow:hidden;opacity:.1;font-weight:600;font-size:clamp(24px,3vw,46px);line-height:1.02;letter-spacing:-.03em;display:grid;grid-template-columns:repeat(3,max-content);gap:0 .7em;align-content:start;padding-top:7vh}
 #drift .dr-tag{position:absolute;top:5.5vh;left:32%;display:flex;gap:7vw;opacity:.22;font-size:clamp(18px,2.2vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1;white-space:pre-line}
@@ -267,7 +271,7 @@ var DRIFT_SETTINGS = {
      About: (one or more paragraphs on the following lines)
      Tagline 1 / Tagline 2 / Stamp outer / Stamp inner / Background words / Email / Index note */
   var LABELS = {
-    'headline': 'headline', 'headline small': 'headlineSmall', 'headline medium': 'headlineMedium', 'about': 'about', 'about link': 'aboutLink', 'tagline 1': 'taglineA', 'tagline 2': 'taglineB',
+    'headline': 'headline', 'about links': 'aboutLinks', 'headline small': 'headlineSmall', 'headline medium': 'headlineMedium', 'about': 'about', 'about link': 'aboutLink', 'tagline 1': 'taglineA', 'tagline 2': 'taglineB',
     'background words': 'backgroundWords', 'stamp outer': 'stampOuter', 'stamp inner': 'stampInner', 'email': 'email',
     'work label': 'workLabel', 'contact label': 'contactLabel', 'index title': 'indexTitle', 'index note': 'indexNote', 'index empty': 'indexEmpty',
     'contact lines': 'contactLines', 'contact note': 'contactNote', 'collage images': 'collageImages',
@@ -301,7 +305,7 @@ var DRIFT_SETTINGS = {
       if (k === 'headline') out.headline = buf[k].join(' / ').split('/').map(function (s) { return s.trim(); }).filter(Boolean);
       else if (k === 'about') out.about = buf[k].join('\n\n');
       else if (k === 'taglineA' || k === 'taglineB') out[k] = buf[k].join(' ').split('/').map(function (s) { return s.trim(); }).join('\n');
-      else if (k === 'contactLines' || k === 'socials') out[k] = buf[k].join(' / ').split(/\s+\/\s+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      else if (k === 'contactLines' || k === 'socials' || k === 'aboutLinks') out[k] = buf[k].join(' / ').split(/\s+\/\s+/).map(function (s) { return s.trim(); }).filter(Boolean);
       else out[k] = buf[k].join(' ');
     });
     return out;
@@ -484,6 +488,15 @@ var DRIFT_SETTINGS = {
   var EMO = /\p{Extended_Pictographic}/u;
   function emoHTML(t) { return Array.from(String(t || '')).map(function (ch) { return EMO.test(ch) ? '<span class="emo" style="display:inline">' + esc(ch) + '</span>' : esc(ch); }).join(''); }
   function hlOpen(t) { var c = hlSize(t).cls; return c ? '<span class="' + c + '">' : '<span>'; }
+  /* links shown above the About text when "More about me" is open */
+  function aboutLinksHTML() {
+    var links = (S.aboutLinks || []).map(function (raw) {
+      var bits = String(raw).split('='), t = bits[0].trim(), h = bits.slice(1).join('=').trim();
+      if (h && !/^(mailto:|https?:)/i.test(h)) h = 'https://' + h;
+      return t && h ? '<a href="' + esc(h) + '" target="_blank" rel="noopener">' + esc(t) + ' ↗</a>' : '';
+    }).filter(Boolean);
+    return links.length ? '<span class="dr-alinks">' + links.join('') + '</span>' : '';
+  }
   function mount(projects) {
     if (root || (!projects.length && !(projects.tiles || []).length)) return;
     var bg = S.background || '#FFFFFF', ink = S.text || '#0A0A0A';
@@ -506,7 +519,7 @@ var DRIFT_SETTINGS = {
     var head = (S.headline || []).map(function (l) { return hlOpen(l) + emoHTML(l) + '</span>'; }).join('');
     root.innerHTML =
       '<div class="dr-hero" style="background:' + esc(bg) + '">' +
-        '<div class="dr-about" style="left:' + gut + ';--gut:' + gut + '">' + esc(S.about) + '</div>' +
+        '<div class="dr-about" style="left:' + gut + ';--gut:' + gut + '">' + aboutLinksHTML() + esc(S.about) + '</div>' +
         '<div class="dr-words" aria-hidden="true">' + wordHTML + '</div>' +
         '<div class="dr-tag" aria-hidden="true"><span>' + esc(S.taglineA) + '</span><span>' + esc(S.taglineB) + '</span></div>' +
         '<div class="dr-field"></div>' +
