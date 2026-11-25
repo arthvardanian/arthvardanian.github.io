@@ -218,9 +218,10 @@ var DRIFT_SETTINGS = {
 #drift .dr-text p{margin:0;font-size:14px;font-weight:500;line-height:1.3;max-width:56ch}
 @media (max-width:760px){#drift .dr-text{grid-template-columns:1fr}}
 #drift .dr-card .dr-frame{position:relative;width:100%;aspect-ratio:4/5}
-#drift .dr-cap{display:flex;justify-content:space-between;gap:8px;font-size:11px;font-weight:600;line-height:1.2}
+#drift .dr-cap{display:flex;justify-content:space-between;gap:12px;font-size:13px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
 #drift .dr-cap small{display:block;font-weight:500;opacity:.5;font-size:11px}
-#drift .dr-cap span:last-child{text-align:right}
+#drift .dr-cap span:last-child:not(:first-child){text-align:right}
+#drift .dr-cap > span:only-child, #drift .dr-cap > span:only-child small{text-align:left}
 #drift .dr-card .dr-frame{cursor:zoom-in}
 #drift .dr-card .dr-frame:hover .dr-tile img{opacity:.86}
 #drift .dr-lb{position:absolute;inset:0;z-index:20;display:none;grid-template-rows:auto minmax(0,1fr) auto;padding:14px max(16px,2.2vw) 18px}
@@ -710,9 +711,12 @@ var DRIFT_SETTINGS = {
     });
 
     /* index */
-    var cats = ['All'], counts = { All: projects.length };
+    /* the left menu lists the projects only (no "All"); the first project opens by default */
+    var cats = [], counts = {};
     projects.forEach(function (p) { if (!(p.category in counts)) { counts[p.category] = 0; cats.push(p.category); } counts[p.category]++; });
-    var filters = root.querySelector('.dr-filters'), grid = root.querySelector('.dr-grid'), current = 'All';
+    var FIRST = cats[0] || 'All';
+    var filters = root.querySelector('.dr-filters'), grid = root.querySelector('.dr-grid'), current = FIRST;
+    function resetCat() { if (cats.indexOf(current) < 0) { current = FIRST; renderFilters(); renderGrid(); } var gw = root.querySelector('.dr-gridwrap'); if (gw) gw.scrollTop = 0; }
     function renderFilters() {
       filters.innerHTML = '';
       cats.forEach(function (name) {
@@ -798,7 +802,7 @@ var DRIFT_SETTINGS = {
         if (current !== 'All' && p.category !== current) return;
         var card = document.createElement('div'); card.className = 'dr-card'; card.dataset.pi = projects.indexOf(p);
         card.innerHTML = '<div class="dr-frame">' + tileHTML(p) + '</div>' + (p.stat ? '' : '<div class="dr-cap"><span>' + esc(p.title) +
-          '<small>' + esc([p.client, p.year].filter(Boolean).join(' · ')) + '</small></span><span>' + esc(p.formats) + '</span></div>');
+          '<small>' + esc([p.client, p.year, p.formats].filter(Boolean).join(' · ')) + '</small></span></div>');
         var fr = card.querySelector('.dr-frame');
         if (p.stat) { fr.style.cursor = 'default'; grid.appendChild(card); fitTiles(card); return; }
         fr.setAttribute('role', 'button'); fr.setAttribute('tabindex', '0'); fr.setAttribute('aria-label', 'View ' + p.title + ' full size');
@@ -810,8 +814,8 @@ var DRIFT_SETTINGS = {
       if (!projects.length && !notes.length) noteCard({ heading: S.indexEmptyTitle || 'Coming soon', body: S.indexEmpty || 'Post visuals are on their way.' });
     }
     renderFilters(); renderGrid();
-    root.querySelector('.dr-peek').addEventListener('click', function () { if (current !== 'All') { current = 'All'; renderFilters(); renderGrid(); } root.classList.add('dr-open'); });
-    root.querySelector('.dr-openwork').addEventListener('click', function () { if (current !== 'All') { current = 'All'; renderFilters(); renderGrid(); } root.classList.add('dr-open'); });
+    root.querySelector('.dr-peek').addEventListener('click', function () { resetCat(); root.classList.add('dr-open'); });
+    root.querySelector('.dr-openwork').addEventListener('click', function () { resetCat(); root.classList.add('dr-open'); });
     root.querySelector('.dr-close').addEventListener('click', function () { root.classList.remove('dr-open'); });
     /* clicking a floating image opens Work on that project's group and scrolls to it */
     on(field, 'click', function (e) {
