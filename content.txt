@@ -111,13 +111,13 @@ Tile | €0.67 | ads, influencers, placements | CPF · CH | #00C2FF
 Index empty: Visual ideas for my posts are on their way.
 
 # ---------- WORLD CUP 2026 ----------
-wc-01-england-croatia.jpg | WC match visual: England – Croatia, poker-table concept | World Cup 2026 | | 2026 | Match visual
-wc-02-portugal-uzbekistan.jpg | WC match visual: Portugal – Uzbekistan, building the trophy brick by brick | World Cup 2026 | | 2026 | Match visual
-wc-03-brazil-norway.jpg | WC match visual: Brazil – Norway, round of 16 epic face-off | World Cup 2026 | | 2026 | Match visual
-wc-04-spain-belgium.jpg | WC match visual: Spain – Belgium, "The Matchtrix" movie-poster parody | World Cup 2026 | | 2026 | Match visual
-wc-05-spain-argentina.jpg | WC match visual: Spain – Argentina, red-carpet trophy face-off | World Cup 2026 | | 2026 | Match visual
-wc-06-matches-of-the-day.jpg | WC matches of the day: schedule for 25/26 June | World Cup 2026 | | 2026 | Schedule
-wc-07-guess-yellow-cards.jpg | Engagement game: guess the yellow cards in France – Spain, win a free bet | World Cup 2026 | | 2026 | Engagement
-wc-08-welcome-bonus.jpg | Welcome bonus promo ahead of the WC final | World Cup 2026 | | 2026 | Promo
-wc-09-guess-the-player.jpg | Engagement game: guess the player from his childhood photo | World Cup 2026 | | 2026 | Engagement
-wc-10-no-deposit-bonus.jpg | No-deposit bonus promo with a WC theme | World Cup 2026 | | 2026 | Promo
+wc-01-england-croatia.jpg | WC: England - Croatia | World Cup 2026 | | 2026 | Match visual
+wc-02-portugal-uzbekistan.jpg | WC: Portugal - Uzbekistan | World Cup 2026 | | 2026 | Match visual
+wc-03-brazil-norway.jpg | WC: Brazil - Norway | World Cup 2026 | | 2026 | Match visual
+wc-04-spain-belgium.jpg | WC: Spain - Belgium | World Cup 2026 | | 2026 | Match visual
+wc-05-spain-argentina.jpg | WC: Spain - Argentina | World Cup 2026 | | 2026 | Match visual
+wc-06-matches-of-the-day.jpg | WC Schedule idea | World Cup 2026 | | 2026 | Schedule
+wc-07-guess-yellow-cards.jpg | Freebet: guess the number of yellow cards | World Cup 2026 | | 2026 | Engagement
+wc-08-welcome-bonus.jpg | Welcome Bonus | World Cup 2026 | | 2026 | Promo
+wc-09-guess-the-player.jpg | Guess the player | World Cup 2026 | | 2026 | Engagement
+wc-10-no-deposit-bonus.jpg | No-deposit bonus | World Cup 2026 | | 2026 | Promo
