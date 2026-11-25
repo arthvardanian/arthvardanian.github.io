@@ -805,6 +805,8 @@ var DRIFT_SETTINGS = {
           '<small>' + esc([p.client, p.year, p.formats].filter(Boolean).join(' · ')) + '</small></span></div>');
         var fr = card.querySelector('.dr-frame');
         if (p.stat) { fr.style.cursor = 'default'; grid.appendChild(card); fitTiles(card); return; }
+        /* the frame takes the picture's own shape, so nothing is cropped */
+        if (p.pics[0] && p.pics[0].ratio) fr.style.aspectRatio = String(1 / p.pics[0].ratio);
         fr.setAttribute('role', 'button'); fr.setAttribute('tabindex', '0'); fr.setAttribute('aria-label', 'View ' + p.title + ' full size');
         fr.addEventListener('click', function () { lbOpen(p); });
         fr.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lbOpen(p); } });
