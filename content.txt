@@ -129,10 +129,10 @@ latam-01-nba-heat-bucks.jpg | NBA: Heat - Bucks | LATAM | | 2026 | Match visual
 latam-02-jetx-welcome-bonus.jpg | Welcome Bonus: JetX | LATAM | | 2026 | Promo
 latam-03-security-reminder.jpg | Security reminder | LATAM | | 2026 | Trust & safety
 latam-04-advent-calendar-teaser.jpg | Advent calendar teaser | LATAM | | 2026 | Seasonal campaign
-latam-05-you-only-have-50.jpg | Game: you only have $50 | LATAM | | 2026 | Engagement
-latam-06-reactions-giveaway.jpg | Giveaway: reactions for a gift | LATAM | | 2026 | Giveaway
-latam-07-match-the-item.jpg | Game: match the item to the character | LATAM | | 2026 | Engagement
-latam-08-telegram-stars-promo.jpg | Telegram Stars promo | LATAM | | 2026 | Promo
-latam-09-easter-campaign.jpg | Easter campaign | LATAM | | 2026 | Seasonal campaign
-latam-10-meme.jpg | Meme | LATAM | | 2026 | Meme
+latam-05-you-only-have-50.jpg | Game: you only have $50 | LATAM |  | 2025 | Engagement
+latam-06-reactions-giveaway.jpg | Giveaway: reactions for a gift | LATAM |  | 2025 | Giveaway
+latam-07-match-the-item.jpg | Game: match the item to the character | LATAM |  | 2025 | Engagement
+latam-08-telegram-stars-promo.jpg | Telegram Stars promo | LATAM |  | 2025 | Promo
+latam-09-easter-campaign.jpg | Easter campaign | LATAM |  | 2025 | Seasonal campaign
+latam-10-meme.jpg | Meme | LATAM |  | 2025 | Meme
 latam-11-vote-favorite-game.jpg | Vote for your favorite game | LATAM | | 2026 | Engagement
