@@ -74,7 +74,7 @@ Software | Claude | simple:claude |
 
 # The images from Work that also float in the collage (file names, separated by commas).
 # Leave it empty to use all of them. The coloured tiles below are always mixed in.
-Collage images:
+Collage images: wc-01-england-croatia.jpg, wc-02-portugal-uzbekistan.jpg, wc-03-brazil-norway.jpg, wc-04-spain-belgium.jpg, wc-05-spain-argentina.jpg
 
 # =====================================================================
 #  TILES — the coloured tiles floating on the main screen.
