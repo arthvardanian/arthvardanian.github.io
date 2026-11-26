@@ -37,7 +37,7 @@ Form key:
 # CONTACT: clicking CONTACT flips the headline into these lines.
 #   "= form" opens the mail form. "Socials" flips into the links listed under Socials.
 Contact lines: Email me = form / Socials
-Socials: Telegram = https://t.me/arthvardanian / LinkedIn = https://www.linkedin.com/in/arthvardanian
+Socials: Telegram = https://t.me/arthvardanian / LinkedIn = https://www.linkedin.com/in/arthvardanian / Instagram = https://www.instagram.com/arthadramas
 Form title: Let's talk.
 Form button: Send
 Form thanks: Got it. I'll write back soon.
