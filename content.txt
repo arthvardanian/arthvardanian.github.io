@@ -74,22 +74,23 @@ Software | Claude | simple:claude |
 
 # The images from Work that also float in the collage (file names, separated by commas).
 # Leave it empty to use all of them. The coloured tiles below are always mixed in.
-Collage images: wc-01-england-croatia.jpg, wc-02-portugal-uzbekistan.jpg, wc-03-brazil-norway.jpg, wc-04-spain-belgium.jpg, wc-05-spain-argentina.jpg, latam-01-nba-heat-bucks.jpg
+Collage images: wc-01-england-croatia.jpg, wc-02-portugal-uzbekistan.jpg, wc-03-brazil-norway.jpg, wc-04-spain-belgium.jpg, wc-05-spain-argentina.jpg, latam-01-nba-heat-bucks.jpg, chingiz-03-iphone-giveaway.jpg, chingiz-06-tournament.jpg
 
 # =====================================================================
 #  TILES — the coloured tiles floating on the main screen.
 #  They only live in the collage and are NOT shown in Work.
-#  One line per tile:   Tile | Big text | Small text | Label | Colour
+#  One line per tile:   Tile | Big text | Small text | Label | Colour | Opens
 #  Label (small text on top) and Colour (e.g. #FF2D78) are optional.
+#  Opens (optional): a project name from Work. Clicking the tile opens that project.
 # =====================================================================
 
 Tile | 4.1M | views on my top sport Reels | Reels · RU | #FF2D78
 Tile | 3× | in 2 months. Never dropped after | Engagement · RU | #00E676
-Tile | 2× | 6 months in a row (with ads, influencers) | FD · Depsum · CH | #2F5BFF
+Tile | 2× | 6 months in a row (with ads, influencers) | FD · Depsum · CH | #2F5BFF | LATAM
 Tile | 10 | RU KZ UZ AZ · BR PE CH · CA US MX | GEOs | #FFD400
-Tile | 5 | SMM specialists I led | Team · LATAM | #7C3AED
-Tile | 700 | from 0 in 2 months | Followers · CH | #FF6A00
-Tile | €0.67 | ads, influencers, placements | CPF · CH | #00C2FF
+Tile | 5 | SMM specialists I led | Team · LATAM | #7C3AED | LATAM
+Tile | 700 | from 0 in 2 months | Followers · CH | #FF6A00 | LATAM
+Tile | €0.67 | ads, influencers, placements | CPF · CH | #00C2FF | LATAM
 
 # =====================================================================
 #  WORK — visual ideas for posts. Only images go here.

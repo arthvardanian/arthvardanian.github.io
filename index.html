@@ -44,7 +44,7 @@
       /* Tile | Big text | Small text | Label | Colour  ->  a coloured text tile that only floats in the collage */
       if (/^(tile|stat)\s*\|/i.test(line)) {
         var st = line.split('|').map(function (x) { return x.trim(); });
-        if (st[1]) (window.DRIFT_STATS = window.DRIFT_STATS || []).push({ big: st[1], small: st[2] || '', group: st[3] || '', color: st[4] || '' });
+        if (st[1]) (window.DRIFT_STATS = window.DRIFT_STATS || []).push({ big: st[1], small: st[2] || '', group: st[3] || '', color: st[4] || '', link: st[5] || '' });
         return;
       }
       if (/^software\s*\|/i.test(line)) {
@@ -145,6 +145,8 @@ var DRIFT_SETTINGS = {
 #drift .dr-stat b{display:block;font-weight:800;letter-spacing:-.055em;line-height:.86;overflow-wrap:normal;word-break:normal}
 #drift .dr-stat span{font-size:9em;letter-spacing:-.01em;line-height:1.02}
 #drift .dr-item[data-pi="-1"]{cursor:default}
+#drift .dr-item[data-cat]{cursor:pointer}
+#drift .dr-item[data-cat]:hover .dr-stat{filter:brightness(1.08)}
 #drift .dr-metric{position:absolute;left:6em;bottom:6em;max-width:88em;background:#fff;color:#0A0A0A;font-weight:800;font-size:10em;letter-spacing:-.04em;line-height:1;padding:3em 4em;text-transform:uppercase}
 #drift .dr-count{position:absolute;top:8px;right:8px;background:rgba(40,40,40,.72);color:#fff;font-size:11px;font-weight:600;padding:3px 7px;border-radius:99px;font-variant-numeric:tabular-nums;line-height:1.2}
 #drift .dr-stamp{position:absolute;z-index:2;left:47%;top:42%;width:clamp(96px,9vw,150px);aspect-ratio:1;pointer-events:none}
@@ -393,7 +395,7 @@ var DRIFT_SETTINGS = {
     /* tiles live only in the collage, they are not part of Work */
     projects.tiles = (window.DRIFT_STATS || []).map(function (st, k) {
       return { title: st.big, category: st.group, client: st.small, year: '', formats: '', metric: '',
-        stat: { big: st.big, small: st.small, color: st.color || PAL[k % PAL.length] }, pics: [{ src: '', ratio: 1.25 }] };
+        stat: { big: st.big, small: st.small, color: st.color || PAL[k % PAL.length], link: st.link }, pics: [{ src: '', ratio: 1.25 }] };
     });
     projects.notes = findNotes(projects);
     return projects;
@@ -646,7 +648,7 @@ var DRIFT_SETTINGS = {
         if (w > W * 0.4) { w = Math.round(W * 0.4); h = Math.round(w * r); }
         var el = document.createElement('div'); el.className = 'dr-item';
         el.style.width = w + 'px'; el.style.height = h + 'px'; el.innerHTML = tileHTML(p);
-        el.dataset.pi = projects.indexOf(p); if (!p.stat) { el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'See ' + p.title + ' in Work'); }
+        el.dataset.pi = projects.indexOf(p); if (p.stat && p.stat.link) { el.dataset.cat = p.stat.link; el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'See ' + p.stat.link + ' in Work'); } if (!p.stat) { el.setAttribute('role', 'button'); el.setAttribute('aria-label', 'See ' + p.title + ' in Work'); }
         field.appendChild(el); fitTiles(el); cycle(el, p);
         items.push({ el: el, w: w, h: h, bx: sp.bx, by: sp.by, d: sp.d, dup: placed[pool.indexOf(p)][0] !== sp });
       });
@@ -823,6 +825,14 @@ var DRIFT_SETTINGS = {
     /* clicking a floating image opens Work on that project's group and scrolls to it */
     on(field, 'click', function (e) {
       var it = e.target.closest('.dr-item'); if (!it || isOpen()) return;
+      /* a tile with "Opens" set in content.txt opens that project in Work */
+      if (it.dataset.cat) {
+        var want = it.dataset.cat.trim().toLowerCase(), hit = cats.filter(function (c) { return c.toLowerCase() === want; })[0];
+        if (!hit) return;
+        current = hit; renderFilters(); renderGrid(); root.classList.add('dr-open');
+        var gw0 = root.querySelector('.dr-gridwrap'); if (gw0) gw0.scrollTop = 0;
+        return;
+      }
       var p = projects[+it.dataset.pi]; if (!p) return;
       current = p.category; renderFilters(); renderGrid();
       root.classList.add('dr-open');
