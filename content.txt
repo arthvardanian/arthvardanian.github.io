@@ -27,6 +27,9 @@ Background words: Arth, SMM, Followers, Campaigns, Content Plans, Roadmaps, Reac
 # The spinning stamp
 Stamp outer: BUILT FOR THE FEED · TUNED FOR THE KPI ·
 Stamp inner: FD · GGR · ROI · ER ·
+# Your CV in the middle of the stamp (a PDF in the main folder). Leave empty to hide the button.
+CV: Arth-Vardanian-CV.pdf
+CV label: CV
 
 # Messages from the mail form go to this address.
 # The first time someone sends the form, FormSubmit emails you an "Activate" link. Click it once.
